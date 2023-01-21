@@ -1,0 +1,25 @@
+{
+  "name": "groundstation",
+  "version": "1.0.0",
+  "description": "Ground Station software used to process and visualize data received from a launch vehicle",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron src",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ITBA-Avionics-Team/GroundStation.git"
+  },
+  "author": "Bensas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ITBA-Avionics-Team/GroundStation/issues"
+  },
+  "homepage": "https://github.com/ITBA-Avionics-Team/GroundStation#readme",
+  "dependencies": {
+    "chart.js": "^4.2.0",
+    "electron": "^22.0.3",
+    "serialport": "^10.5.0"
+  }
+}
