@@ -7,6 +7,10 @@ body {
   font-family:sans-serif
 }
 
+p {
+  margin: 0 0.5rem;
+}
+
 .column {
   display: flex;
   flex-direction: column;

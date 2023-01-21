@@ -65,7 +65,6 @@ function generateCurrentTimeFileName(date) {
 }
 
 
-
 const startupTime = new Date();
 const flightLogFileName = generateCurrentTimeFileName(startupTime);
 
@@ -87,13 +86,21 @@ communicationService.subscribe((telemetryPacket) => {
 
 });
 
+/*
+
+FOR TESTING PURPOSES ONLY:
+
+communicationService.receive('00000,PR,0058.2,-34.43555,-58.92193\n');
+
+
+*/
 
 function setCurrentStateIndicator(id, temp) {
   let elem = document.getElementById(id);
-  elem.innerHTML = 'Current temperature: ' + temp;
+  elem.innerHTML = '<b>Current state:</b> ' + temp;
 }
 
 function setCurrentGPSCoordsIndicator(id, lat, lng) {
   let elem = document.getElementById(id);
-  elem.innerHTML = 'Current GPS coordinates: ' + lat + ', ' + lng;
+  elem.innerHTML = '<b>Current GPS coordinates:</b> ' + lat + ', ' + lng;
 }

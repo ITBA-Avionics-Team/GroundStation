@@ -1,5 +1,4 @@
-
-const SERIAL_PORT_PATH = '/dev/tty.';
+const SERIAL_PORT_PATH = '/dev/tty.Bluetooth-Incoming-Port';
 
 const VehicleState = {
 	Startup: 'ST',
@@ -14,15 +13,16 @@ class CommunicationService {
   constructor() {
     this.receiveSubscriptions = [];
 
+    console.log(window.SerialPort2.SerialPort.list());
+
     this.serialport = new window.SerialPort2.SerialPort({path: SERIAL_PORT_PATH, baudRate: 9600 });  
     
     this.parser = this.serialport.pipe(new window.SerialPort2.ReadlineParser());
     this.parser.on('data', this.receive);
 
-    this.serialport.on('open', function() {
+    this.serialport.on('open', () =>{
       console.log('Serial port open...');
     });
-    
   }
 
   receive(rawData) {
@@ -44,7 +44,7 @@ class CommunicationService {
 
   //<PACKET_COUNT>,<STATE>,<ALTITUDE>,<GPS_LATITUDE>,<GPS_LONGITUDE>');
   parsePacket(rawPacket) {
-    const telemetryElements = content.split(',');
+    const telemetryElements = rawPacket.split(',');
     if (telemetryElements.length === 5) { 
       return {
         packet_count: Number(telemetryElements[0]),
