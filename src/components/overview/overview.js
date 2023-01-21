@@ -46,7 +46,7 @@ const containerTelemetryChartConfig = {
 
 
 containerTelemetryCanvasCtx = document.getElementById('container-telemetry-canvas').getContext('2d');
-containerTelemetryChart = new window.chartjs.Chart(containerTelemetryCanvasCtx, containerTelemetryChartConfig);
+containerTelemetryChart = new Chart(containerTelemetryCanvasCtx, containerTelemetryChartConfig);
 
 
 function addValueToTelemetryChart(chart, value, label) {
@@ -69,11 +69,11 @@ function generateCurrentTimeFileName(date) {
 const startupTime = new Date();
 const flightLogFileName = generateCurrentTimeFileName(startupTime);
 
-const storageService = StorageService();
+const storageService = new StorageService();
 storageService.createNewFlightLog(flightLogFileName);
 
 
-const communicationService = CommunicationService();
+const communicationService = new CommunicationService();
 
 communicationService.subscribe((telemetryPacket) => {
   console.log('Received telemetry packet in overview component:', telemetryPacket);

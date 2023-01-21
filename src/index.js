@@ -6,7 +6,8 @@ function createWindow () {
     height: 600,
     webPreferences: {
       preload: `${__dirname}/preload.js`,
-      sandbox: false
+      sandbox: false,
+      contextIsolation: false
     }
   })
 

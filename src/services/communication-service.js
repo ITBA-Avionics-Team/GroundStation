@@ -1,4 +1,6 @@
 
+const SERIAL_PORT_PATH = '/dev/tty.';
+
 const VehicleState = {
 	Startup: 'ST',
 	PreApogee: 'PR',
@@ -10,29 +12,29 @@ const VehicleState = {
 class CommunicationService {
 
   constructor() {
-    self.receiveSubscriptions = [];
-    self.serialport = new window.SerialPort("COM3", { baudRate: 9600 });
-    
-    
-    self.parser = self.serialport.pipe(new ReadlineParser());
-    self.parser.on('data', self.receive);
+    this.receiveSubscriptions = [];
 
-    self.serialport.on("open", function() {
-      console.log("Serial port open...");
+    this.serialport = new window.SerialPort2.SerialPort({path: SERIAL_PORT_PATH, baudRate: 9600 });  
+    
+    this.parser = this.serialport.pipe(new window.SerialPort2.ReadlineParser());
+    this.parser.on('data', this.receive);
+
+    this.serialport.on('open', function() {
+      console.log('Serial port open...');
     });
     
   }
 
   receive(rawData) {
-    const packet = self.parsePacket(rawData);
+    const packet = this.parsePacket(rawData);
     console.debug('Received and parsed packet: ', packet);
-    self.receiveSubscriptions.forEach(callback => {
+    this.receiveSubscriptions.forEach(callback => {
       callback(packet);
     });
   }
 
   subscribe(onPcktReceived) {
-    self.receiveSubscriptions.push(onPcktReceived);
+    this.receiveSubscriptions.push(onPcktReceived);
   }
 
   send(rawData) {
