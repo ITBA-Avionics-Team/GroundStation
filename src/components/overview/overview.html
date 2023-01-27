@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Mission Overview</title>
-    <link rel="stylesheet" type="text/css" href="overview.css">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <script src="Chart.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="overview.css">
+    <script src="lib/Chart.min.js"></script>
 </head>
 <body>
     <div class="header">Ground Control System</div>
@@ -43,6 +44,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row gps-position-map" id="gps-position-map">
+
+
     </div>
     <div class="row telemetry-overview-status-bar">
         <svg id="mqtt-off-indicator" height="15px" width="15px">

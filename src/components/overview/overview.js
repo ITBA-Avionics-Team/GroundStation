@@ -83,6 +83,7 @@ communicationService.subscribe((telemetryPacket) => {
 
   setCurrentStateIndicator('telemetry-state', telemetryPacket.state);
   setCurrentGPSCoordsIndicator('telemetry-gps-coordinates', telemetryPacket.gpsLat, telemetryPacket.gpsLng);
+  updateGPSMap(telemetryPacket.gpsLat, telemetryPacket.gpsLng);
 
 });
 
@@ -90,10 +91,12 @@ communicationService.subscribe((telemetryPacket) => {
 
 FOR TESTING PURPOSES ONLY:
 
-communicationService.receive('00000,PR,0058.2,-34.43555,-58.92193\n');
 
 
 */
+
+communicationService.receive('00000,PR,0058.2,-34.635664,-58.364751\n');
+
 
 function setCurrentStateIndicator(id, temp) {
   let elem = document.getElementById(id);
@@ -103,4 +106,30 @@ function setCurrentStateIndicator(id, temp) {
 function setCurrentGPSCoordsIndicator(id, lat, lng) {
   let elem = document.getElementById(id);
   elem.innerHTML = '<b>Current GPS coordinates:</b> ' + lat + ', ' + lng;
+}
+
+function updateGPSMap(lat, lng) {
+
+  const MAPS_API_KEY = "";
+  const MAPBOX_ACCESS_TOKEN = "";
+
+  let gmaps_iframe = `<iframe\
+                  width="450"\
+                  height="250"\
+                  frameborder="0" style="border:0"\
+                  referrerpolicy="no-referrer-when-downgrade"\
+                  src="https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=${lat},${lng}"\
+                  allowfullscreen>\
+                </iframe>`;
+
+  let mapbox_iframe = `<iframe
+                  width="100%"
+                  height="400px"
+                  src='https://api.mapbox.com/styles/v1/mapbox/streets-v12.html?title=false&zoomwheel=false&access_token=${MAPBOX_ACCESS_TOKEN}/${lat}/${lng}'
+                  title="Rocket position"
+                  style="border:none;"
+                ></iframe>`
+
+  let mapContainer = document.getElementById('gps-position-map');
+  mapContainer.innerHTML = gmaps_iframe;
 }
